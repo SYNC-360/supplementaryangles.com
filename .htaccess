@@ -1,0 +1,157 @@
+# Supplementary Angles - Apache Configuration
+# Enhanced SEO and Performance
+
+# Enable mod_rewrite
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteBase /
+
+    # Remove www subdomain redirect
+    RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
+    RewriteRule ^(.*)$ https://%1/$1 [R=301,L]
+
+    # Force HTTPS
+    RewriteCond %{HTTPS} off
+    RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+    # Remove .html extension
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^([^\.]+)$ $1.html [NC,L]
+
+    # Prevent direct access to .html files
+    RewriteRule ^(.+)\.html$ https://%{HTTP_HOST}/$1 [R=301,L]
+
+    # Cache busting for CSS and JS
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_URI} !^/\.well-known/acme-challenge/
+</IfModule>
+
+# Security Headers
+<IfModule mod_headers.c>
+    # Prevent clickjacking
+    Header always set X-Frame-Options "SAMEORIGIN"
+
+    # MIME type sniffing prevention
+    Header always set X-Content-Type-Options "nosniff"
+
+    # XSS Protection
+    Header always set X-XSS-Protection "1; mode=block"
+
+    # Referrer Policy
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+
+    # Feature Policy / Permissions Policy
+    Header always set Permissions-Policy "geolocation=(), microphone=(), camera=()"
+
+    # CSP (Content Security Policy) - Adjust as needed
+    Header set Content-Security-Policy "default-src 'self' https:; script-src 'self' https://cdn.jsdelivr.net https://www.googletagmanager.com https://www.google-analytics.com 'unsafe-inline'; style-src 'self' https: 'unsafe-inline'; img-src 'self' https: data:; font-src 'self' https:; connect-src 'self' https:; frame-ancestors 'self';"
+</IfModule>
+
+# Compression
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html
+    AddOutputFilterByType DEFLATE text/plain
+    AddOutputFilterByType DEFLATE text/xml
+    AddOutputFilterByType DEFLATE text/css
+    AddOutputFilterByType DEFLATE text/javascript
+    AddOutputFilterByType DEFLATE application/xml
+    AddOutputFilterByType DEFLATE application/xhtml+xml
+    AddOutputFilterByType DEFLATE application/rss+xml
+    AddOutputFilterByType DEFLATE application/javascript
+    AddOutputFilterByType DEFLATE application/x-javascript
+    AddOutputFilterByType DEFLATE application/x-httpd-php
+</IfModule>
+
+# Browser Caching
+<IfModule mod_expires.c>
+    ExpiresActive On
+
+    # Images
+    ExpiresByType image/jpeg "access 1 year"
+    ExpiresByType image/gif "access 1 year"
+    ExpiresByType image/png "access 1 year"
+    ExpiresByType image/webp "access 1 year"
+    ExpiresByType image/svg+xml "access 1 year"
+    ExpiresByType image/x-icon "access 1 year"
+
+    # CSS and JavaScript
+    ExpiresByType text/css "access 1 month"
+    ExpiresByType text/javascript "access 1 month"
+    ExpiresByType application/javascript "access 1 month"
+    ExpiresByType application/x-javascript "access 1 month"
+
+    # HTML - Don't cache too long for updates
+    ExpiresByType text/html "access 1 week"
+
+    # Fonts
+    ExpiresByType font/truetype "access 1 year"
+    ExpiresByType font/opentype "access 1 year"
+    ExpiresByType application/x-font-woff "access 1 year"
+    ExpiresByType image/svg+xml "access 1 year"
+
+    # Default
+    ExpiresDefault "access 2 weeks"
+</IfModule>
+
+# E-Tag Control for better caching
+<IfModule mod_headers.c>
+    Header unset ETag
+    FileETag None
+</IfModule>
+
+# Block access to sensitive files
+<FilesMatch "\.(env|htaccess|htpasswd|ini|phps|fla|psd|log|sh)$">
+    Deny from all
+</FilesMatch>
+
+# Block access to backup/template files
+<FilesMatch "\.(bak|config|sql|ftp|pem|key|rsa|csr)$">
+    Deny from all
+</FilesMatch>
+
+# Allow access to necessary files
+<FilesMatch "\.(jpg|jpeg|png|gif|webp|ico|css|js|svg|eot|woff|woff2|ttf|otf|pdf|xml|txt)$">
+    Allow from all
+</FilesMatch>
+
+# CORS Headers for embeddable content
+<IfModule mod_headers.c>
+    Header set Access-Control-Allow-Origin "*"
+    Header set Access-Control-Allow-Methods "GET, HEAD, OPTIONS"
+    Header set Access-Control-Allow-Headers "Content-Type"
+</IfModule>
+
+# Disable directory browsing
+Options -Indexes
+
+# Set default charset
+AddDefaultCharset utf-8
+AddCharset utf-8 .html .css .js .xml .json .rss .atom .pdf
+
+# Prevent hotlinking (optional - uncomment to enable)
+# <IfModule mod_rewrite.c>
+#   RewriteCond %{HTTP_REFERER} !^$
+#   RewriteCond %{HTTP_REFERER} !^https?://supplementaryangles.com [NC]
+#   RewriteRule \.(jpg|jpeg|png|gif|pdf)$ - [NC,F,L]
+# </IfModule>
+
+# Redirect old URLs if needed
+# Redirect 301 /old-page.html https://supplementaryangles.com/
+
+# Protect XML-RPC (for WordPress if ever needed)
+<FilesMatch "xmlrpc\.php$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+# 404 Error Page
+ErrorDocument 404 "Sorry, that page was not found. Please visit the homepage at supplementaryangles.com"
+
+# Custom error pages
+# ErrorDocument 500 /500.html
+# ErrorDocument 403 /403.html
+
+# Remove server signature
+ServerTokens Prod
+ServerSignature Off

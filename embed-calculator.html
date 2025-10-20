@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Supplementary Angle Calculator - Embeddable</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: #f8f9fa;
+            padding: 20px;
+        }
+
+        .embed-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+            padding: 30px;
+        }
+
+        .embed-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .embed-header h1 {
+            font-size: 24px;
+            color: #0052cc;
+            margin-bottom: 8px;
+        }
+
+        .embed-header p {
+            color: #6c757d;
+            font-size: 14px;
+        }
+
+        .calculator-form {
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #0052cc;
+            font-size: 15px;
+        }
+
+        .input-wrapper {
+            display: flex;
+            gap: 8px;
+            align-items: stretch;
+        }
+
+        input[type="number"] {
+            flex: 1;
+            padding: 12px 15px;
+            border: 2px solid #dee2e6;
+            border-radius: 6px;
+            font-size: 16px;
+            font-family: inherit;
+            transition: all 0.3s ease;
+        }
+
+        input[type="number"]:focus {
+            outline: none;
+            border-color: #0052cc;
+            box-shadow: 0 0 0 3px rgba(0, 82, 204, 0.1);
+        }
+
+        .unit {
+            display: flex;
+            align-items: center;
+            padding: 0 12px;
+            font-weight: 600;
+            color: #0052cc;
+            font-size: 18px;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px 24px;
+            background-color: #0052cc;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 20px;
+        }
+
+        button:hover {
+            background-color: #0041a3;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 82, 204, 0.3);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        .result-section {
+            display: none;
+            animation: slideDown 0.4s ease;
+        }
+
+        .result-section.show {
+            display: block;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .result-box {
+            background: linear-gradient(135deg, #f0f4ff 0%, #f9f9ff 100%);
+            border: 2px solid #0066ff;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .result-display {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .result-item {
+            background-color: white;
+            padding: 15px 20px;
+            border-radius: 6px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+            min-width: 100px;
+        }
+
+        .result-item-label {
+            font-size: 12px;
+            color: #6c757d;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+        .result-item-value {
+            font-size: 24px;
+            font-weight: bold;
+            color: #0052cc;
+        }
+
+        .result-operator {
+            font-size: 20px;
+            font-weight: bold;
+            color: #0052cc;
+        }
+
+        .result-visualization {
+            background-color: white;
+            padding: 20px;
+            border-radius: 6px;
+            margin: 20px 0;
+            min-height: 200px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        svg {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .embed-footer {
+            text-align: center;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #dee2e6;
+        }
+
+        .embed-footer p {
+            font-size: 12px;
+            color: #6c757d;
+        }
+
+        .embed-footer a {
+            color: #0052cc;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .embed-footer a:hover {
+            text-decoration: underline;
+        }
+
+        .error-message {
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
+            padding: 12px 15px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            display: none;
+            font-size: 14px;
+        }
+
+        .error-message.show {
+            display: block;
+        }
+
+        @media (max-width: 480px) {
+            .embed-container {
+                padding: 20px;
+            }
+
+            .embed-header h1 {
+                font-size: 20px;
+            }
+
+            .result-display {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .result-operator {
+                display: none;
+            }
+
+            .result-item {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="embed-container">
+        <div class="embed-header">
+            <h1>📐 Supplementary Angle Calculator</h1>
+            <p>Find the supplement of any angle instantly</p>
+        </div>
+
+        <div class="error-message" id="errorMsg"></div>
+
+        <form class="calculator-form" onsubmit="calculateSupplementEmbed(event)">
+            <label for="angleInputEmbed">Enter an angle (0° - 180°)</label>
+            <div class="input-wrapper">
+                <input
+                    type="number"
+                    id="angleInputEmbed"
+                    min="0"
+                    max="180"
+                    step="0.1"
+                    placeholder="Enter angle"
+                    required
+                >
+                <span class="unit">°</span>
+            </div>
+            <button type="submit">Calculate Supplement</button>
+        </form>
+
+        <div class="result-section" id="resultSection">
+            <div class="result-box">
+                <div class="result-display">
+                    <div class="result-item">
+                        <div class="result-item-label">Angle</div>
+                        <div class="result-item-value" id="displayAngle">—</div>
+                    </div>
+                    <div class="result-operator">+</div>
+                    <div class="result-item">
+                        <div class="result-item-label">Supplement</div>
+                        <div class="result-item-value" id="displaySupplement">—</div>
+                    </div>
+                    <div class="result-operator">=</div>
+                    <div class="result-item">
+                        <div class="result-item-label">Total</div>
+                        <div class="result-item-value">180°</div>
+                    </div>
+                </div>
+
+                <div class="result-visualization">
+                    <svg id="embeddedSvg" viewBox="0 0 400 200" style="max-height: 200px;">
+                        <!-- SVG will be generated by JavaScript -->
+                    </svg>
+                </div>
+            </div>
+        </div>
+
+        <div class="embed-footer">
+            <p>Powered by <a href="https://supplementaryangles.com/" target="_blank">SupplementaryAngles.com</a></p>
+            <p style="margin-top: 10px;">📚 Learn more about supplementary angles and geometry</p>
+        </div>
+    </div>
+
+    <script>
+        function calculateSupplementEmbed(e) {
+            e.preventDefault();
+
+            const input = document.getElementById('angleInputEmbed');
+            const angle = parseFloat(input.value);
+            const errorMsg = document.getElementById('errorMsg');
+            const resultSection = document.getElementById('resultSection');
+
+            // Validation
+            if (isNaN(angle) || angle < 0 || angle > 180) {
+                errorMsg.textContent = 'Please enter a valid angle between 0° and 180°';
+                errorMsg.classList.add('show');
+                resultSection.classList.remove('show');
+                return;
+            }
+
+            errorMsg.classList.remove('show');
+
+            // Calculate
+            const supplement = 180 - angle;
+
+            // Display results
+            document.getElementById('displayAngle').textContent = formatNumber(angle) + '°';
+            document.getElementById('displaySupplement').textContent = formatNumber(supplement) + '°';
+
+            // Generate visualization
+            generateEmbedVisualization(angle, supplement);
+
+            // Show results
+            resultSection.classList.add('show');
+        }
+
+        function formatNumber(num) {
+            const rounded = Math.round(num * 100) / 100;
+            return rounded.toString();
+        }
+
+        function generateEmbedVisualization(angle1, angle2) {
+            const svg = document.getElementById('embeddedSvg');
+            svg.innerHTML = '';
+
+            const width = 400;
+            const height = 200;
+            const centerX = width / 2;
+            const centerY = height - 30;
+            const radius = 50;
+
+            // Title
+            const title = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+            title.setAttribute('x', width / 2);
+            title.setAttribute('y', 30);
+            title.setAttribute('text-anchor', 'middle');
+            title.setAttribute('font-size', '16');
+            title.setAttribute('font-weight', 'bold');
+            title.setAttribute('fill', '#0052cc');
+            title.textContent = formatNumber(angle1) + '° + ' + formatNumber(angle2) + '° = 180°';
+            svg.appendChild(title);
+
+            // Draw angles
+            drawAngleEmbed(svg, centerX - 120, centerY, angle1, '#0052cc');
+            drawAngleEmbed(svg, centerX + 120, centerY, angle2, '#28a745');
+
+            // Draw line
+            const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+            line.setAttribute('x1', centerX - 60);
+            line.setAttribute('y1', centerY);
+            line.setAttribute('x2', centerX + 60);
+            line.setAttribute('y2', centerY);
+            line.setAttribute('stroke', '#6c757d');
+            line.setAttribute('stroke-width', '2');
+            svg.appendChild(line);
+        }
+
+        function drawAngleEmbed(svg, centerX, centerY, angle, color) {
+            const radius = 50;
+
+            // Baseline
+            const baseline = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+            baseline.setAttribute('x1', centerX);
+            baseline.setAttribute('y1', centerY);
+            baseline.setAttribute('x2', centerX + radius);
+            baseline.setAttribute('y2', centerY);
+            baseline.setAttribute('stroke', '#000');
+            baseline.setAttribute('stroke-width', '2');
+            svg.appendChild(baseline);
+
+            // Ray
+            const radians = (angle * Math.PI) / 180;
+            const endX = centerX + radius * Math.cos(radians);
+            const endY = centerY - radius * Math.sin(radians);
+
+            const ray = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+            ray.setAttribute('x1', centerX);
+            ray.setAttribute('y1', centerY);
+            ray.setAttribute('x2', endX);
+            ray.setAttribute('y2', endY);
+            ray.setAttribute('stroke', color);
+            ray.setAttribute('stroke-width', '2');
+            svg.appendChild(ray);
+
+            // Arc
+            const largeArc = angle > 180 ? 1 : 0;
+            const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+            path.setAttribute('d', `M ${centerX + radius} ${centerY} A ${radius} ${radius} 0 ${largeArc} 0 ${endX} ${endY}`);
+            path.setAttribute('fill', 'none');
+            path.setAttribute('stroke', color);
+            path.setAttribute('stroke-width', '2');
+            svg.appendChild(path);
+
+            // Label
+            const labelAngle = (angle * Math.PI) / 360;
+            const labelX = centerX + (radius + 15) * Math.cos(labelAngle);
+            const labelY = centerY - (radius + 15) * Math.sin(labelAngle);
+
+            const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+            text.setAttribute('x', labelX);
+            text.setAttribute('y', labelY);
+            text.setAttribute('text-anchor', 'middle');
+            text.setAttribute('dominant-baseline', 'middle');
+            text.setAttribute('font-size', '14');
+            text.setAttribute('fill', color);
+            text.setAttribute('font-weight', 'bold');
+            text.textContent = formatNumber(angle) + '°';
+            svg.appendChild(text);
+        }
+    </script>
+</body>
+</html>

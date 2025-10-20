@@ -1,0 +1,69 @@
+# Supplementary Angles - Robots.txt
+# Last updated: 2025-10-20
+
+# Allow all search engines to crawl all pages
+User-agent: *
+Allow: /
+Allow: /index.html
+Allow: /calculator.html
+Allow: /resources.html
+Allow: /worksheets.html
+
+# Disallow private/admin pages (none currently)
+# Disallow: /admin/
+# Disallow: /private/
+
+# Disallow duplicate or low-value pages
+Disallow: /cgi-bin/
+Disallow: /search
+Disallow: /search/
+Disallow: /temp/
+Disallow: /test/
+
+# Specific rules for Google
+User-agent: Googlebot
+Allow: /
+
+# Specific rules for Bing
+User-agent: Bingbot
+Allow: /
+
+# Crawl delay (optional - use if server is under load)
+# Crawl-delay: 1
+
+# Sitemap location
+Sitemap: https://supplementaryangles.com/sitemap.xml
+
+# RSS Feed (if available in future)
+# Sitemap: https://supplementaryangles.com/feed.xml
+
+# Avoid crawling calendar applications
+User-agent: *
+Disallow: /calendar
+
+# Avoid crawling session IDs
+Disallow: /*?sessionid=
+
+# Avoid crawling PDFs with parameters
+Disallow: /*pdf?*
+
+# Google-specific directives
+User-agent: Googlebot
+Allow: /pdf
+Allow: /images
+
+# Block bad bots (optional)
+User-agent: AhrefsBot
+User-agent: SemrushBot
+User-agent: DotBot
+User-agent: MJ12bot
+Disallow: /
+
+# Allow JavaScript and CSS files to be indexed (important for rendering)
+User-agent: *
+Allow: /*.js
+Allow: /*.css
+Allow: /js/
+Allow: /css/
+Allow: /img/
+Allow: /images/
