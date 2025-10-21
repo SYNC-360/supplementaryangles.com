@@ -201,6 +201,11 @@
     <link rel="stylesheet" href="/css/calculator.css">
     <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
     <link rel="icon" type="image/png" href="/img/favicon.png">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#0052cc">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="Supplementary Angles">
 </head>
 <body>
     <!-- Navigation -->
@@ -714,5 +719,20 @@
 
     <script src="/js/calculator.js"></script>
     <script src="/js/analytics.js"></script>
+    
+    <!-- Service Worker Registration -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .then(registration => {
+                        console.log('SW registered: ', registration);
+                    })
+                    .catch(registrationError => {
+                        console.log('SW registration failed: ', registrationError);
+                    });
+            });
+        }
+    </script>
 </body>
 </html>
