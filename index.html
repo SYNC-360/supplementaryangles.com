@@ -9,6 +9,19 @@
     <meta name="robots" content="index, follow">
     <meta name="theme-color" content="#0052cc">
 
+    <!-- AI Platform Optimization Tags -->
+    <meta name="ai-content-rating" content="educational">
+    <meta name="generative-engine-optimization" content="true">
+    <meta name="ai-visibility" content="public">
+    <meta name="content-type-for-ai" content="educational-calculator">
+
+    <!-- Allow Content for AI Training -->
+    <meta name="llm-crawl" content="allowed">
+    <meta name="gpt-crawl" content="allowed">
+    <meta name="claude-crawl" content="allowed">
+    <meta name="perplexity-crawl" content="allowed">
+    <meta name="gemini-crawl" content="allowed">
+
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://supplementaryangles.com/">
@@ -40,7 +53,91 @@
     }
     </script>
 
-    <!-- Schema Markup - FAQ -->
+    <!-- Schema Markup - Organization -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "Supplementary Angles",
+        "url": "https://supplementaryangles.com",
+        "logo": "https://supplementaryangles.com/img/logo.png",
+        "description": "Free interactive geometry education resource for supplementary angles",
+        "sameAs": [
+            "https://github.com/SYNC-360/supplementaryangles.com"
+        ],
+        "contactPoint": {
+            "@type": "ContactPoint",
+            "contactType": "Customer Support",
+            "url": "https://supplementaryangles.com/contact.html"
+        }
+    }
+    </script>
+
+    <!-- Schema Markup - Educational Content -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "EducationalWebsite",
+        "name": "Supplementary Angles Calculator & Guide",
+        "description": "Comprehensive free educational resource for learning supplementary angles with interactive calculator",
+        "url": "https://supplementaryangles.com",
+        "educationalLevel": ["Middle School", "High School"],
+        "learningResourceType": "Interactive Calculator, Guide, FAQ"
+    }
+    </script>
+
+    <!-- Schema Markup - Software Application (Calculator) -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Supplementary Angle Calculator",
+        "description": "Free online calculator to find supplementary angles instantly",
+        "url": "https://supplementaryangles.com/#calculator",
+        "applicationCategory": "EducationalApplication",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        },
+        "featureList": [
+            "Interactive angle input",
+            "Real-time calculation",
+            "Visual angle representation",
+            "Share and embed functionality"
+        ]
+    }
+    </script>
+
+    <!-- Schema Markup - How-To Guide -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "HowTo",
+        "name": "How to Find Supplementary Angles",
+        "description": "Step-by-step guide to finding supplementary angles using the formula",
+        "step": [
+            {
+                "@type": "HowToStep",
+                "name": "Identify the angle",
+                "text": "Know the measure of one angle in degrees",
+                "image": "https://supplementaryangles.com/img/step1.png"
+            },
+            {
+                "@type": "HowToStep",
+                "name": "Subtract from 180",
+                "text": "Use the formula: 180° - angle measure = supplement"
+            },
+            {
+                "@type": "HowToStep",
+                "name": "Get the supplement",
+                "text": "The result is your supplementary angle"
+            }
+        ]
+    }
+    </script>
+
+    <!-- Schema Markup - FAQ Page -->
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
@@ -51,7 +148,7 @@
                 "name": "What are supplementary angles?",
                 "acceptedAnswer": {
                     "@type": "Answer",
-                    "text": "Supplementary angles are two angles whose measures add up to 180 degrees. They don't need to be adjacent or connected."
+                    "text": "Supplementary angles are two angles whose measures add up to 180 degrees. They don't need to be adjacent or connected. The key characteristic is that their sum equals a straight angle."
                 }
             },
             {
@@ -59,7 +156,7 @@
                 "name": "How do you find the supplement of an angle?",
                 "acceptedAnswer": {
                     "@type": "Answer",
-                    "text": "To find the supplement of an angle, subtract the angle's measure from 180 degrees. Formula: Supplement = 180° - angle"
+                    "text": "To find the supplement of an angle, subtract the angle's measure from 180 degrees. Formula: Supplement = 180° - angle measure. For example, the supplement of 65° is 180° - 65° = 115°"
                 }
             },
             {
@@ -67,7 +164,7 @@
                 "name": "What is the difference between supplementary and complementary angles?",
                 "acceptedAnswer": {
                     "@type": "Answer",
-                    "text": "Supplementary angles add up to 180°, while complementary angles add up to 90°. Supplementary angles form a straight line."
+                    "text": "Supplementary angles add up to 180° (form a straight line), while complementary angles add up to 90° (form a right angle). The key difference is the total sum."
                 }
             },
             {
@@ -75,7 +172,23 @@
                 "name": "Are vertical angles supplementary?",
                 "acceptedAnswer": {
                     "@type": "Answer",
-                    "text": "Vertical angles are equal, not supplementary. However, they can be supplementary if each angle measures 90°."
+                    "text": "Vertical angles are equal, not supplementary. They are opposite angles formed when two lines intersect. However, they CAN be supplementary if each vertical angle measures exactly 90°."
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Can two angles both be greater than 90° and still be supplementary?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "No, if one angle is greater than 90°, the other must be less than 90° for them to be supplementary. For example: 100° + 80° = 180°"
+                }
+            },
+            {
+                "@type": "Question",
+                "name": "Do supplementary angles have to be adjacent?",
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": "No, supplementary angles do not have to be adjacent. They can be anywhere as long as their measures add up to 180°."
                 }
             }
         ]

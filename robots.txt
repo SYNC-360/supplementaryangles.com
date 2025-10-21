@@ -1,69 +1,152 @@
 # Supplementary Angles - Robots.txt
-# Last updated: 2025-10-20
+# Last updated: 2025-10-21
+# Optimized for both traditional search engines and AI platforms
 
-# Allow all search engines to crawl all pages
+# ==============================================
+# DEFAULT RULES - Allow all legitimate crawlers
+# ==============================================
 User-agent: *
 Allow: /
 Allow: /index.html
-Allow: /calculator.html
 Allow: /resources.html
-Allow: /worksheets.html
+Allow: /embed-calculator.html
 
-# Disallow private/admin pages (none currently)
-# Disallow: /admin/
-# Disallow: /private/
-
-# Disallow duplicate or low-value pages
-Disallow: /cgi-bin/
-Disallow: /search
-Disallow: /search/
-Disallow: /temp/
-Disallow: /test/
-
-# Specific rules for Google
-User-agent: Googlebot
-Allow: /
-
-# Specific rules for Bing
-User-agent: Bingbot
-Allow: /
-
-# Crawl delay (optional - use if server is under load)
-# Crawl-delay: 1
-
-# Sitemap location
-Sitemap: https://supplementaryangles.com/sitemap.xml
-
-# RSS Feed (if available in future)
-# Sitemap: https://supplementaryangles.com/feed.xml
-
-# Avoid crawling calendar applications
-User-agent: *
-Disallow: /calendar
-
-# Avoid crawling session IDs
-Disallow: /*?sessionid=
-
-# Avoid crawling PDFs with parameters
-Disallow: /*pdf?*
-
-# Google-specific directives
-User-agent: Googlebot
-Allow: /pdf
-Allow: /images
-
-# Block bad bots (optional)
-User-agent: AhrefsBot
-User-agent: SemrushBot
-User-agent: DotBot
-User-agent: MJ12bot
-Disallow: /
-
-# Allow JavaScript and CSS files to be indexed (important for rendering)
-User-agent: *
+# Allow critical resources
 Allow: /*.js
 Allow: /*.css
 Allow: /js/
 Allow: /css/
 Allow: /img/
 Allow: /images/
+Allow: /assets/
+
+# Disallow private/admin pages
+Disallow: /cgi-bin/
+Disallow: /admin/
+Disallow: /private/
+Disallow: /test/
+Disallow: /temp/
+
+# Avoid crawling session IDs and duplicates
+Disallow: /*?sessionid=
+Disallow: /*?utm_
+Disallow: /*?fbclid=
+
+# ==============================================
+# AI CRAWLER OPTIMIZATION - Allow AI platforms
+# ==============================================
+
+# OpenAI GPTBot - ChatGPT crawler
+User-agent: GPTBot
+Allow: /
+Crawl-delay: 1
+
+# Anthropic ClaudeBot - Claude crawler
+User-agent: Claude-Web
+Allow: /
+Crawl-delay: 1
+
+User-agent: ClaudeBot
+Allow: /
+Crawl-delay: 1
+
+# Perplexity Bot
+User-agent: PerplexityBot
+Allow: /
+Crawl-delay: 1
+
+# Google Gemini & Bard
+User-agent: Google-Extended
+Allow: /
+Crawl-delay: 1
+
+User-agent: Gemini-Bot
+Allow: /
+Crawl-delay: 1
+
+# Microsoft Bing & Copilot
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 1
+
+User-agent: MicrosoftPreview
+Allow: /
+Crawl-delay: 1
+
+# xAI Grok crawler
+User-agent: Grok
+Allow: /
+Crawl-delay: 1
+
+# Apple Intelligence
+User-agent: Apple-Siri
+Allow: /
+Crawl-delay: 1
+
+# Brave Search
+User-agent: BraveBot
+Allow: /
+Crawl-delay: 1
+
+# Komo AI
+User-agent: KomoSearchBot
+Allow: /
+Crawl-delay: 1
+
+# ==============================================
+# SEARCH ENGINE OPTIMIZATION
+# ==============================================
+
+# Google Search
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 1
+
+# Bing Search
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 1
+
+# ==============================================
+# BLOCK LOW-VALUE BOTS
+# ==============================================
+
+# Aggressive scrapers and analysis bots
+User-agent: AhrefsBot
+Disallow: /
+
+User-agent: SemrushBot
+Disallow: /
+
+User-agent: DotBot
+Disallow: /
+
+User-agent: MJ12bot
+Disallow: /
+
+User-agent: AhrefsBot
+Disallow: /
+
+User-agent: SiteAuditBot
+Disallow: /
+
+# ==============================================
+# PERFORMANCE SETTINGS
+# ==============================================
+
+# Default crawl delay for responsible crawling
+Crawl-delay: 1
+
+# Request rate limit (requests per second)
+Request-rate: 1/1
+
+# ==============================================
+# SITEMAP CONFIGURATION
+# ==============================================
+
+# Primary sitemap
+Sitemap: https://supplementaryangles.com/sitemap.xml
+
+# Standard Sitemap URL format
+Sitemap: https://supplementaryangles.com/sitemap.xml
+Sitemap: https://www.supplementaryangles.com/sitemap.xml

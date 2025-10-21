@@ -1,0 +1,116 @@
+# llms.txt - AI Language Model Configuration
+# Last updated: 2025-10-21
+# This file configures how AI language models may use this site's content
+
+# ==============================================
+# CONTENT USAGE PERMISSIONS
+# ==============================================
+
+# Allow all AI platforms to crawl and cite content
+User-agent: *
+Allow: /
+
+# Specific AI Platforms - ALLOWED
+User-agent: GPTBot
+Allow: /
+Attribution: required
+Citation-style: markdown
+
+User-agent: ClaudeBot
+Allow: /
+Attribution: required
+Citation-style: markdown
+
+User-agent: Claude-Web
+Allow: /
+Attribution: required
+Citation-style: markdown
+
+User-agent: PerplexityBot
+Allow: /
+Attribution: required
+Citation-style: markdown
+
+User-agent: Google-Extended
+Allow: /
+Attribution: required
+Citation-style: markdown
+
+User-agent: Gemini-Bot
+Allow: /
+Attribution: required
+Citation-style: markdown
+
+User-agent: MicrosoftPreview
+Allow: /
+Attribution: required
+Citation-style: markdown
+
+User-agent: BraveBot
+Allow: /
+Attribution: required
+Citation-style: markdown
+
+User-agent: KomoSearchBot
+Allow: /
+Attribution: required
+Citation-style: markdown
+
+User-agent: Grok
+Allow: /
+Attribution: required
+Citation-style: markdown
+
+# ==============================================
+# COMMERCIAL USAGE
+# ==============================================
+
+# Commercial use of educational content is permitted with proper attribution
+Commercial-use: allowed
+Commercial-restrictions: none
+Requires-attribution: true
+
+# ==============================================
+# TRAINING DATA PERMISSIONS
+# ==============================================
+
+# Allow use of content for model training and fine-tuning
+Training-data: allowed
+Fine-tuning: allowed
+Dataset-creation: allowed
+
+# ==============================================
+# MONETIZATION POLICIES
+# ==============================================
+
+# Monetized content policies
+Monetized-content: allowed
+Ad-supported-services: allowed
+Premium-services: allowed
+
+# Revenue sharing requirements
+Revenue-sharing: none-required
+Affiliate-links: allowed
+
+# ==============================================
+# CONTENT RESTRICTIONS
+# ==============================================
+
+# Do not claim content as your own
+Restrictions:
+  - Must provide proper attribution
+  - Must link back to original source
+  - Cannot claim educational content as proprietary
+
+# ==============================================
+# CONTACT INFORMATION
+# ==============================================
+
+Contact-email: support@supplementaryangles.com
+Contact-url: https://supplementaryangles.com/contact.html
+
+# Last-Modified: 2025-10-21
+# Version: 1.0
+
+# Note: This llms.txt file follows the proposed standard for AI content usage control.
+# For more information, see: https://llmsblog.com/llms-txt/
