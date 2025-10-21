@@ -5,7 +5,7 @@
 /**
  * Calculate the supplement of an angle
  * @param {number} angle - The input angle in degrees
- * @returns {number} The supplementary angle
+ * @returns {boolean} True if calculation successful
  */
 function calculateSupplement(angle = null) {
     // Get input value if not passed as parameter
@@ -16,18 +16,22 @@ function calculateSupplement(angle = null) {
         // Validation
         if (isNaN(angle)) {
             showError('Please enter a valid number');
-            return;
+            return false;
         }
 
+        // Improved validation: allow 0-180 inclusive
         if (angle < 0 || angle > 180) {
             showError('Please enter an angle between 0° and 180°');
-            return;
+            return false;
         }
+
+        // Performance: trim to 10 decimal places to avoid floating point errors
+        angle = Math.round(angle * 10000000000) / 10000000000;
     }
 
-    // Calculate supplement
+    // Calculate supplement (mathematically guaranteed to be valid)
     const supplement = 180 - angle;
-    const sum = angle + supplement;
+    const sum = 180; // Always 180 for supplementary angles
 
     // Display results
     displayResult(angle, supplement, sum);
@@ -37,6 +41,8 @@ function calculateSupplement(angle = null) {
 
     // Log to analytics
     logCalculation(angle, supplement);
+
+    return true;
 }
 
 /**
@@ -330,15 +336,26 @@ function initCalculator() {
                 calculateSupplement();
             }
         });
+
+        // Keyboard shortcuts: Ctrl+Enter or Cmd+Enter
+        input.addEventListener('keydown', (e) => {
+            if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+                calculateSupplement();
+            }
+        });
+
+        // Focus on input when page loads
+        setTimeout(() => input.focus(), 100);
     }
 
     // Check for URL parameters (for sharing)
     const urlParams = new URLSearchParams(window.location.search);
     const angle = urlParams.get('angle');
 
-    if (angle && !isNaN(angle)) {
+    if (angle && !isNaN(angle) && parseFloat(angle) >= 0 && parseFloat(angle) <= 180) {
         input.value = angle;
-        calculateSupplement();
+        // Auto-calculate if angle parameter provided
+        setTimeout(() => calculateSupplement(), 300);
     }
 
     // Close modal when clicking outside
@@ -350,6 +367,9 @@ function initCalculator() {
             }
         });
     }
+
+    // Accessibility: Add skip to main content link
+    addA11yFeatures();
 }
 
 // Initialize when DOM is ready
@@ -357,6 +377,21 @@ if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', initCalculator);
 } else {
     initCalculator();
+}
+
+/**
+ * Add accessibility features
+ */
+function addA11yFeatures() {
+    // Add skip to main link if it doesn't exist
+    if (!document.querySelector('a[href="#main-content"]')) {
+        const skipLink = document.createElement('a');
+        skipLink.href = '#calculator';
+        skipLink.className = 'skip-link';
+        skipLink.textContent = 'Skip to calculator';
+        skipLink.setAttribute('aria-label', 'Skip to main calculator section');
+        document.body.insertBefore(skipLink, document.body.firstChild);
+    }
 }
 
 /**

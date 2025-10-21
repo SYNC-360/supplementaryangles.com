@@ -319,7 +319,7 @@
             <!-- Calculator Section -->
             <section id="calculator" class="content-section calculator-section">
                 <h2>Supplementary Angle Calculator</h2>
-                <p>Use this interactive calculator to instantly find the supplement of any angle. Perfect for students, teachers, and professionals.</p>
+                <p>Use this interactive calculator to instantly find the supplement of any angle. Perfect for students, teachers, and professionals. Press <kbd>Enter</kbd> to calculate or <kbd>Ctrl+Enter</kbd> for quick calculation.</p>
 
                 <div class="calculator-container">
                     <div class="calculator-input">
@@ -333,14 +333,15 @@
                                 max="180"
                                 step="0.1"
                                 placeholder="Enter angle in degrees"
-                                aria-label="Angle input"
+                                aria-label="Angle input in degrees"
+                                autocomplete="off"
                             >
                             <span class="unit">°</span>
                         </div>
                     </div>
 
                     <div class="calculator-button">
-                        <button id="calculateBtn" class="btn btn-primary" onclick="calculateSupplement()">Calculate</button>
+                        <button id="calculateBtn" class="btn btn-primary" onclick="calculateSupplement()" title="Calculate supplement angle">Calculate</button>
                     </div>
 
                     <div id="calculatorResult" class="calculator-result hidden" role="region" aria-live="polite" aria-label="Calculation result">
@@ -500,6 +501,43 @@
                             <p>Supplementary angles appear in architecture (roof angles), engineering (joint design), construction (angle measurements), art (perspective drawing), and many other fields. Understanding supplementary angles helps professionals calculate precise angles for various applications.</p>
                         </div>
                     </details>
+                </div>
+            </section>
+
+            <!-- Angle Relationships Guide -->
+            <section id="angle-relationships" class="content-section">
+                <h2>Quick Reference: Angle Relationships</h2>
+                <p>Master the key relationships between angles and how supplementary angles fit into the broader picture of geometry.</p>
+
+                <div class="reference-grid">
+                    <div class="reference-card">
+                        <h3>Supplementary Angles</h3>
+                        <p><strong>Sum:</strong> 180°</p>
+                        <p><strong>Shape:</strong> Straight line</p>
+                        <p><strong>Example:</strong> 110° + 70°</p>
+                        <p class="reference-note">Two angles that form a straight angle together</p>
+                    </div>
+                    <div class="reference-card">
+                        <h3>Complementary Angles</h3>
+                        <p><strong>Sum:</strong> 90°</p>
+                        <p><strong>Shape:</strong> Right angle</p>
+                        <p><strong>Example:</strong> 60° + 30°</p>
+                        <p class="reference-note">Two angles that form a right angle together</p>
+                    </div>
+                    <div class="reference-card">
+                        <h3>Vertical Angles</h3>
+                        <p><strong>Relationship:</strong> Equal (congruent)</p>
+                        <p><strong>Shape:</strong> Intersecting lines</p>
+                        <p><strong>Example:</strong> Both = 45°</p>
+                        <p class="reference-note">Opposite angles formed by two intersecting lines</p>
+                    </div>
+                    <div class="reference-card">
+                        <h3>Linear Pair</h3>
+                        <p><strong>Sum:</strong> 180°</p>
+                        <p><strong>Adjacency:</strong> Adjacent</p>
+                        <p><strong>Example:</strong> 120° + 60°</p>
+                        <p class="reference-note">Two adjacent angles that form a straight line</p>
+                    </div>
                 </div>
             </section>
 
